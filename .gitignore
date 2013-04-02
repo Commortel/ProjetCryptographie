@@ -4,3 +4,5 @@
 *.jar
 *.war
 *.ear
+/ProjetCryptographie/nbproject/private/
+/ProjetCryptographie/build/
