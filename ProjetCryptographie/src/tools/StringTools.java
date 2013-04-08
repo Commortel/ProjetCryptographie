@@ -10,7 +10,7 @@ import java.io.UnsupportedEncodingException;
  *
  * @author Thibaut
  */
-class StringTools 
+public class StringTools 
 {
     public static String getString(byte[] str)
     {

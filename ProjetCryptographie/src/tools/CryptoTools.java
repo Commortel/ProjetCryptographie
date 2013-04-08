@@ -53,7 +53,7 @@ public class CryptoTools
     	return StringTools.getString(cipherText);
     }
 
-    public String decrypt3DES(byte[] message, String encrKey) throws Exception 
+    public static String decrypt3DES(byte[] message, String encrKey) throws Exception 
     {
     	final MessageDigest md = MessageDigest.getInstance("md5");
     	final byte[] digestOfPassword = md.digest(encrKey.getBytes("utf-8"));
@@ -74,10 +74,10 @@ public class CryptoTools
     public static String EncryptFile3DES(String file, String key)  throws Exception
     {
         // Lit l'article pour le décrypter
-        String fileContent = FileTools.ReadFile(file);
+        //String fileContent = FileTools.ReadFile();
 
         // Retourne la chaine cryptée
-        return CryptoTools.encrypt3DES(fileContent, key);
+        return CryptoTools.encrypt3DES(file, key);
     }
 
 }
