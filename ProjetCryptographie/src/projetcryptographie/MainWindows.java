@@ -4,6 +4,10 @@
  */
 package projetcryptographie;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import tools.CryptoTools;
+
 /**
  *
  * @author Thibaut
@@ -15,6 +19,7 @@ public class MainWindows extends javax.swing.JFrame {
      */
     public MainWindows() {
         initComponents();
+        //NB : Precharger les données ici
     }
 
     /**
@@ -40,32 +45,13 @@ public class MainWindows extends javax.swing.JFrame {
         EncreyptedFile = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        AdressTableView.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Name", "Adress"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
+
+        AdressTableView.setModel(new model.TableModel());
         jScrollPane2.setViewportView(AdressTableView);
 
         SearchTitle.setText("Search :");
@@ -106,6 +92,11 @@ public class MainWindows extends javax.swing.JFrame {
 
         Save.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         Save.setText("Save");
+        Save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveActionPerformed(evt);
+            }
+        });
         File.add(Save);
 
         Quit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
@@ -145,13 +136,35 @@ public class MainWindows extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
-        // TODO add your handling code here:
+        try 
+        {
+            System.out.println(tools.FileTools.ReadFile());
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(MainWindows.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_OpenActionPerformed
 
     private void QuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_QuitActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.Save.doClick();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
+        try 
+        {
+            tools.FileTools.WriteFile(CryptoTools.EncryptFile3DES("Content","azertyuiop"));
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(MainWindows.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_SaveActionPerformed
+ 
     /**
      * @param args the command line arguments
      */
