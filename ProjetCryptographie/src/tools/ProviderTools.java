@@ -78,6 +78,8 @@ public class ProviderTools {
      */
     public static void main(String[] args) {
         try {
+            System.out.println(Security.getProvider("SHA512"));
+            /*
             // liste les services offerts par les providers installés
             System.out.println(ProviderTools.listProviders());
             // installe un nouveau provider
@@ -92,7 +94,7 @@ public class ProviderTools {
             BBS.nextBytes(test);
             for (int i = 0; i < 10; i++) {
                 System.out.println(test[i]);
-            }
+            }*/
         } catch (Exception ex) {
             Logger.getLogger(ProviderTools.class.getName()).log(Level.SEVERE, null, ex);
         }

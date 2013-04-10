@@ -3,8 +3,6 @@ package tools;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Scanner;
@@ -21,12 +19,12 @@ public class FileTools
     /// </summary>
     /// <param name="filePath">Chemin du fichier à créer</param>
     /// <param name="fileContent">Text à écrire dans le fichier</param>
-    public static void WriteFile(String fileContent) throws Exception
+    public static void WriteFile(byte[] fileContent) throws Exception
     {
         Writer out = new OutputStreamWriter(new FileOutputStream(filePath));
         try 
         {
-          out.write(fileContent);
+          out.write(StringTools.getString(fileContent));
         }
         finally {
           out.close();
@@ -40,17 +38,17 @@ public class FileTools
     /// <returns>Contenu du fichier</returns>
     public static String ReadFile() throws FileNotFoundException
     {  
-        StringBuilder text = new StringBuilder();
+        String text = new String("");
         Scanner scanner = new Scanner(new FileInputStream(filePath));
         try {
           while (scanner.hasNextLine()){
-            text.append(scanner.nextLine());
+            text+=scanner.nextLine();
           }
         }
         finally{
           scanner.close();
         }
-        return text.toString();
+        return text;
     }
 
     /// <summary>

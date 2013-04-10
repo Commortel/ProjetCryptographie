@@ -5,6 +5,8 @@
 package tools;
 
 import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,15 +20,19 @@ public class StringTools
 
         for(byte b : str) 
         {
-          buffer.append(Integer.toHexString(b));
-          buffer.append(" ");
+          buffer.append(Integer.toHexString(b).toCharArray());
         }
           
         return buffer.toString(); 
     } 
  
-    public static byte[] getBytes(String str) throws UnsupportedEncodingException
+    public static byte[] getBytes(String str)
     {
-        return str.getBytes("utf-8");
+        try {
+            return str.getBytes("utf-8");
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(StringTools.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }
