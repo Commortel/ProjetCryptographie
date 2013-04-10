@@ -2,11 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package projetcryptographie;
+package view;
 
+import java.security.Key;
+import java.security.Security;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.crypto.KeyGenerator;
+import javax.crypto.spec.SecretKeySpec;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import tools.CryptoTools;
+import tools.FileCrypter;
+import tools.StringTools;
 
 /**
  *
@@ -19,7 +26,6 @@ public class MainWindows extends javax.swing.JFrame {
      */
     public MainWindows() {
         initComponents();
-        //NB : Precharger les données ici
     }
 
     /**
@@ -31,11 +37,11 @@ public class MainWindows extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         MainPanel = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        AdressTableView = new javax.swing.JTable();
         Search = new javax.swing.JTextField();
         SearchTitle = new javax.swing.JLabel();
+        notebook2 = new view.Notebook();
         Menu = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
         Open = new javax.swing.JMenuItem();
@@ -43,6 +49,11 @@ public class MainWindows extends javax.swing.JFrame {
         Quit = new javax.swing.JMenuItem();
         Option = new javax.swing.JMenu();
         EncreyptedFile = new javax.swing.JCheckBoxMenuItem();
+        ContactMenu = new javax.swing.JMenu();
+        addContact = new javax.swing.JMenuItem();
+        deleteContact = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -51,31 +62,27 @@ public class MainWindows extends javax.swing.JFrame {
             }
         });
 
-        AdressTableView.setModel(new model.TableModel());
-        jScrollPane2.setViewportView(AdressTableView);
-
         SearchTitle.setText("Search :");
 
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 766, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(MainPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(SearchTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(notebook2, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
-                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(Search, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                    .addComponent(SearchTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(SearchTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(notebook2, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE))
         );
 
         File.setMnemonic('F');
@@ -119,6 +126,16 @@ public class MainWindows extends javax.swing.JFrame {
 
         Menu.add(Option);
 
+        ContactMenu.setText("Contact");
+
+        addContact.setText("Ajouter");
+        ContactMenu.add(addContact);
+
+        deleteContact.setText("Supprimer");
+        ContactMenu.add(deleteContact);
+
+        Menu.add(ContactMenu);
+
         setJMenuBar(Menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -138,7 +155,12 @@ public class MainWindows extends javax.swing.JFrame {
     private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
         try 
         {
-            System.out.println(tools.FileTools.ReadFile());
+            Security.addProvider(new BouncyCastleProvider());
+            FileCrypter en = new FileCrypter("Salsa20", null, null);
+            KeyGenerator kg = KeyGenerator.getInstance("Salsa20");
+            Key key = kg.generateKey();
+            //SecretKeySpec key = new SecretKeySpec("azertyui".getBytes(), "RC5");
+            System.out.println(en.decryptFile(key, "FileCrypter.cry", System.out));
         } 
         catch (Exception ex) 
         {
@@ -157,7 +179,12 @@ public class MainWindows extends javax.swing.JFrame {
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         try 
         {
-            tools.FileTools.WriteFile(CryptoTools.EncryptFile3DES("Content","azertyuiop"));
+            Security.addProvider(new BouncyCastleProvider());
+            FileCrypter en = new FileCrypter("Salsa20", null, null);
+            KeyGenerator kg = KeyGenerator.getInstance("Salsa20");
+            Key key = kg.generateKey();
+            //SecretKeySpec key = new SecretKeySpec("azertyui".getBytes(), "RC5");
+            en.cryptFile(key,"src/tools/FileCrypter.java", "FileCrypter.cry");
         } 
         catch (Exception ex) 
         {
@@ -200,7 +227,7 @@ public class MainWindows extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable AdressTableView;
+    private javax.swing.JMenu ContactMenu;
     private javax.swing.JCheckBoxMenuItem EncreyptedFile;
     private javax.swing.JMenu File;
     private javax.swing.JPanel MainPanel;
@@ -211,6 +238,9 @@ public class MainWindows extends javax.swing.JFrame {
     private javax.swing.JMenuItem Save;
     private javax.swing.JTextField Search;
     private javax.swing.JLabel SearchTitle;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JMenuItem addContact;
+    private javax.swing.JMenuItem deleteContact;
+    private javax.swing.JMenuItem jMenuItem1;
+    private view.Notebook notebook2;
     // End of variables declaration//GEN-END:variables
 }
