@@ -4,21 +4,27 @@
  */
 package view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import model.TableModel;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import tableView.DefaultTableViewColumn;
+import tableView.DefaultTableViewModel;
+import tableView.TableView;
+import tableView.TableViewColumn;
+import tableView.TestTableView;
 
 /**
  *
  * @author Thibaut
  */
-public class Notebook extends javax.swing.JPanel implements ActionListener
+public class Notebook extends javax.swing.JPanel
 {
-
+    private DefaultTableViewModel model;
     /**
      * Creates new form Notebook
      */
     public Notebook() {
+        this.initData();
         initComponents();
     }
 
@@ -31,35 +37,148 @@ public class Notebook extends javax.swing.JPanel implements ActionListener
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scrollPaneTab = new javax.swing.JScrollPane();
-        notebookTable = new javax.swing.JTable();
+        addButton = new javax.swing.JButton();
+        RemoveButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        viewTable = new TableView(this.model);
 
-        notebookTable.setModel(new TableModel());
-        scrollPaneTab.setViewportView(notebookTable);
+        addButton.setText("Add");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
+
+        RemoveButton.setText("Remove");
+        RemoveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RemoveButtonActionPerformed(evt);
+            }
+        });
+
+        jScrollPane1.setViewportView(viewTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(scrollPaneTab, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(RemoveButton, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(scrollPaneTab, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(RemoveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane1)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        this.addRow();
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    private void RemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveButtonActionPerformed
+        this.removeRow();
+    }//GEN-LAST:event_RemoveButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable notebookTable;
-    private javax.swing.JScrollPane scrollPaneTab;
+    private javax.swing.JButton RemoveButton;
+    private javax.swing.JButton addButton;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable viewTable;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void actionPerformed(ActionEvent ae) 
+    private void initData()
     {
+        try {
+            TableViewColumn[] columns =
+              {
+                new DefaultTableViewColumn(
+                  "Name",
+                  Row.class.getDeclaredMethod("getName", null),
+                  Row.class.getDeclaredMethod("setName", new Class[] {String.class})),
+                new DefaultTableViewColumn(
+                  "Mail",
+                  Row.class.getDeclaredMethod("getMail", null),
+                  Row.class.getDeclaredMethod("setMail", new Class[] {String.class})),
+            };
+
+            Row[] rows =
+            {
+                new Row("toto", "This is my toto"),
+                new Row("ooo", "This is my ooo"),
+                new Row("aaa", "This is my aaa"),
+            };
+
+            this.model = new DefaultTableViewModel(columns, Arrays.asList(rows));
+
+            for (int i = 0 ; i < 20000 ; i++) {
+              model.addRow(new Row("" + 1, "This is my " + i));
+            }
+
+          }
+          catch (Exception e) {
+            e.printStackTrace();
+            System.exit(-1);
+          }
+    }
+    
+    public void addRow()
+    {
+        List selection = ((TableView)viewTable).getSelectedRowObjects();
+        model.addRow(new Row("New row", "This is s new row"));
+        ((TableView)viewTable).addRowSelection(selection);
+    }
+    
+    public void removeRow()
+    {
+        List selection = ((TableView)viewTable).getSelectedRowObjects();
+        model.removeRows(selection);
+    }
+    
+    public static class Row
+    {
+        private String name,mail;
         
+        public Row(String name, String mail)
+        {
+            this.name = name;
+            this.mail = mail;
+        }
+
+        /**
+         * @return the name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * @param name the name to set
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        /**
+         * @return the mail
+         */
+        public String getMail() {
+            return mail;
+        }
+
+        /**
+         * @param mail the mail to set
+         */
+        public void setMail(String mail) {
+            this.mail = mail;
+        }     
     }
 }
