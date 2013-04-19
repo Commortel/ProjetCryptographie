@@ -9,11 +9,8 @@ import java.security.Security;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.KeyGenerator;
-import javax.crypto.spec.SecretKeySpec;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import tools.CryptoTools;
 import tools.FileCrypter;
-import tools.StringTools;
 
 /**
  *
@@ -39,9 +36,7 @@ public class MainWindows extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         MainPanel = new javax.swing.JPanel();
-        Search = new javax.swing.JTextField();
-        SearchTitle = new javax.swing.JLabel();
-        notebook2 = new view.Notebook();
+        notebook1 = new view.Notebook();
         Menu = new javax.swing.JMenuBar();
         File = new javax.swing.JMenu();
         Open = new javax.swing.JMenuItem();
@@ -62,27 +57,19 @@ public class MainWindows extends javax.swing.JFrame {
             }
         });
 
-        SearchTitle.setText("Search :");
-
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(SearchTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(notebook2, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)
+                .addComponent(notebook1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
-                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SearchTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(notebook2, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE))
+            .addGroup(MainPanelLayout.createSequentialGroup()
+                .addComponent(notebook1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         File.setMnemonic('F');
@@ -129,9 +116,19 @@ public class MainWindows extends javax.swing.JFrame {
         ContactMenu.setText("Contact");
 
         addContact.setText("Ajouter");
+        addContact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addContactActionPerformed(evt);
+            }
+        });
         ContactMenu.add(addContact);
 
         deleteContact.setText("Supprimer");
+        deleteContact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteContactActionPerformed(evt);
+            }
+        });
         ContactMenu.add(deleteContact);
 
         Menu.add(ContactMenu);
@@ -191,6 +188,14 @@ public class MainWindows extends javax.swing.JFrame {
             Logger.getLogger(MainWindows.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_SaveActionPerformed
+
+    private void addContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addContactActionPerformed
+        this.notebook1.addRow();
+    }//GEN-LAST:event_addContactActionPerformed
+
+    private void deleteContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteContactActionPerformed
+        this.notebook1.removeRow();
+    }//GEN-LAST:event_deleteContactActionPerformed
  
     /**
      * @param args the command line arguments
@@ -236,11 +241,9 @@ public class MainWindows extends javax.swing.JFrame {
     private javax.swing.JMenu Option;
     private javax.swing.JMenuItem Quit;
     private javax.swing.JMenuItem Save;
-    private javax.swing.JTextField Search;
-    private javax.swing.JLabel SearchTitle;
     private javax.swing.JMenuItem addContact;
     private javax.swing.JMenuItem deleteContact;
     private javax.swing.JMenuItem jMenuItem1;
-    private view.Notebook notebook2;
+    private view.Notebook notebook1;
     // End of variables declaration//GEN-END:variables
 }
