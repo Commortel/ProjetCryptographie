@@ -15,15 +15,13 @@ import java.util.logging.Logger;
 public class StringTools 
 {
     public static String getString(byte[] str)
-    {
-        StringBuilder buffer = new StringBuilder();
-
-        for(byte b : str) 
-        {
-          buffer.append(Integer.toHexString(b).toCharArray());
+    { 
+        try { 
+            return new String( str , "Cp1252" );
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(StringTools.class.getName()).log(Level.SEVERE, null, ex);
         }
-          
-        return buffer.toString(); 
+        return null;
     } 
  
     public static byte[] getBytes(String str)
