@@ -4,24 +4,18 @@
  */
 package view;
 
-import java.security.Key;
 import java.security.Security;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.crypto.KeyGenerator;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import tools.FileCrypter;
+import tools.CryptoTools;
 
 /**
  *
  * @author Thibaut
  */
 public class MainWindows extends javax.swing.JFrame {
-
-    /**
-     * Creates new form MainWindows
-     */
+    
     public MainWindows() {
+        Security.addProvider(new BouncyCastleProvider());
         initComponents();
     }
 
@@ -34,7 +28,14 @@ public class MainWindows extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem1 = new javax.swing.JMenuItem();
+        SaveDialogWithoutFile = new javax.swing.JDialog();
+        LoginLabel = new javax.swing.JLabel();
+        loginTextField = new javax.swing.JTextField();
+        PasswordLabel = new javax.swing.JLabel();
+        PasswordField = new javax.swing.JPasswordField();
+        SaveButtonDialog = new javax.swing.JButton();
+        CancelButtonDialog = new javax.swing.JButton();
+        FileChooser = new javax.swing.JFileChooser();
         MainPanel = new javax.swing.JPanel();
         notebook1 = new view.Notebook();
         Menu = new javax.swing.JMenuBar();
@@ -48,7 +49,71 @@ public class MainWindows extends javax.swing.JFrame {
         addContact = new javax.swing.JMenuItem();
         deleteContact = new javax.swing.JMenuItem();
 
-        jMenuItem1.setText("jMenuItem1");
+        SaveDialogWithoutFile.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        SaveDialogWithoutFile.setTitle("Notebook");
+        SaveDialogWithoutFile.setAlwaysOnTop(true);
+        SaveDialogWithoutFile.setMaximumSize(new java.awt.Dimension(300, 200));
+        SaveDialogWithoutFile.setMinimumSize(new java.awt.Dimension(270, 170));
+        SaveDialogWithoutFile.setModal(true);
+        SaveDialogWithoutFile.setPreferredSize(new java.awt.Dimension(270, 170));
+
+        LoginLabel.setText("Login");
+
+        PasswordLabel.setText("Password");
+
+        SaveButtonDialog.setText("Save");
+        SaveButtonDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveButtonDialogActionPerformed(evt);
+            }
+        });
+
+        CancelButtonDialog.setText("Cancel");
+        CancelButtonDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelButtonDialogActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout SaveDialogWithoutFileLayout = new javax.swing.GroupLayout(SaveDialogWithoutFile.getContentPane());
+        SaveDialogWithoutFile.getContentPane().setLayout(SaveDialogWithoutFileLayout);
+        SaveDialogWithoutFileLayout.setHorizontalGroup(
+            SaveDialogWithoutFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SaveDialogWithoutFileLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(SaveDialogWithoutFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SaveDialogWithoutFileLayout.createSequentialGroup()
+                        .addGroup(SaveDialogWithoutFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(LoginLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(PasswordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(SaveDialogWithoutFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(loginTextField)
+                            .addComponent(PasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)))
+                    .addGroup(SaveDialogWithoutFileLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(SaveButtonDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(CancelButtonDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        SaveDialogWithoutFileLayout.setVerticalGroup(
+            SaveDialogWithoutFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SaveDialogWithoutFileLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(SaveDialogWithoutFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(SaveDialogWithoutFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PasswordLabel)
+                    .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(SaveDialogWithoutFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SaveButtonDialog)
+                    .addComponent(CancelButtonDialog))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -62,14 +127,13 @@ public class MainWindows extends javax.swing.JFrame {
         MainPanelLayout.setHorizontalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainPanelLayout.createSequentialGroup()
-                .addComponent(notebook1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(notebook1, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MainPanelLayout.createSequentialGroup()
-                .addComponent(notebook1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+            .addComponent(notebook1, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         File.setMnemonic('F');
@@ -139,34 +203,24 @@ public class MainWindows extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
-        try 
-        {
-            Security.addProvider(new BouncyCastleProvider());
-            FileCrypter en = new FileCrypter("Salsa20", null, null);
-            KeyGenerator kg = KeyGenerator.getInstance("Salsa20");
-            Key key = kg.generateKey();
-            //SecretKeySpec key = new SecretKeySpec("azertyui".getBytes(), "RC5");
-            System.out.println(en.decryptFile(key, "FileCrypter.cry", System.out));
-        } 
-        catch (Exception ex) 
-        {
-            Logger.getLogger(MainWindows.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.FileChooser.setVisible(true);
+        this.FileChooser.showOpenDialog(this);
+        System.out.println(CryptoTools.decryptFile3DES("Thibaut.cry","thibaut"));
     }//GEN-LAST:event_OpenActionPerformed
 
     private void QuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuitActionPerformed
-        System.exit(0);
+        this.Save.doClick();
     }//GEN-LAST:event_QuitActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -174,19 +228,8 @@ public class MainWindows extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
-        try 
-        {
-            Security.addProvider(new BouncyCastleProvider());
-            FileCrypter en = new FileCrypter("Salsa20", null, null);
-            KeyGenerator kg = KeyGenerator.getInstance("Salsa20");
-            Key key = kg.generateKey();
-            //SecretKeySpec key = new SecretKeySpec("azertyui".getBytes(), "RC5");
-            en.cryptFile(key,"src/tools/FileCrypter.java", "FileCrypter.cry");
-        } 
-        catch (Exception ex) 
-        {
-            Logger.getLogger(MainWindows.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.SaveDialogWithoutFile.setVisible(true);
+        CryptoTools.encryptFile3DES("Pouet", "Thibaut.cry","thibaut");
     }//GEN-LAST:event_SaveActionPerformed
 
     private void addContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addContactActionPerformed
@@ -196,6 +239,14 @@ public class MainWindows extends javax.swing.JFrame {
     private void deleteContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteContactActionPerformed
         this.notebook1.removeRow();
     }//GEN-LAST:event_deleteContactActionPerformed
+
+    private void SaveButtonDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonDialogActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_SaveButtonDialogActionPerformed
+
+    private void CancelButtonDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonDialogActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_CancelButtonDialogActionPerformed
  
     /**
      * @param args the command line arguments
@@ -232,18 +283,25 @@ public class MainWindows extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CancelButtonDialog;
     private javax.swing.JMenu ContactMenu;
     private javax.swing.JCheckBoxMenuItem EncreyptedFile;
     private javax.swing.JMenu File;
+    private javax.swing.JFileChooser FileChooser;
+    private javax.swing.JLabel LoginLabel;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JMenuBar Menu;
     private javax.swing.JMenuItem Open;
     private javax.swing.JMenu Option;
+    private javax.swing.JPasswordField PasswordField;
+    private javax.swing.JLabel PasswordLabel;
     private javax.swing.JMenuItem Quit;
     private javax.swing.JMenuItem Save;
+    private javax.swing.JButton SaveButtonDialog;
+    private javax.swing.JDialog SaveDialogWithoutFile;
     private javax.swing.JMenuItem addContact;
     private javax.swing.JMenuItem deleteContact;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JTextField loginTextField;
     private view.Notebook notebook1;
     // End of variables declaration//GEN-END:variables
 }
