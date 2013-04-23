@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<xml>
-<body>
-<auto_resize_column selected="Next"/>
-<column id="Name" visible="true" width="623"/>
-<column id="Mail" visible="false"/>
-</body>
-</xml>
