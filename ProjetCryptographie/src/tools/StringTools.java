@@ -46,14 +46,26 @@ public class StringTools
     
     public static HashMap<String,String> convertStringToHashMapFormat(String data)
     {
-        HashMap<String,String> listData = new HashMap<>();
-        String[] tmp = data.split(";");
-        
-        for(String s : tmp)
+        try
         {
-            String[] t = s.split("~");
-            listData.put(t[0], t[1]);
+            HashMap<String,String> listData = new HashMap<>();
+            String[] tmp = data.split(";");
+
+            for(String s : tmp)
+            {
+                String[] t = s.split("~");
+                listData.put(t[0], t[1]);
+            }
+            return listData;
         }
-        return listData;
+        catch(Exception ex)
+        {
+            return new HashMap<>();
+        }
+    }
+    
+    public static String getNameWithoutExtension(String name)
+    {
+        return name.substring(0, name.length()-4);
     }
 }

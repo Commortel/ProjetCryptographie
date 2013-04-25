@@ -85,7 +85,7 @@ public class CryptoTools
         }
         catch (Exception ex) 
         {
-            Logger.getLogger(CryptoTools.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Bad key");
             return null;
         } 
     }
