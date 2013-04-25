@@ -4,10 +4,14 @@
  */
 package view;
 
+import java.awt.Desktop;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import tableView.DefaultTableViewColumn;
 import tableView.DefaultTableViewModel;
 import tableView.TableView;
@@ -174,6 +178,25 @@ public class Notebook extends javax.swing.JPanel
     private void mailTo() 
     {
         System.out.println(((Row)((TableView)viewTable).getSelectedRowObject()).mail);
+        String mailTo = new String("");
+        URI uriMailTo = null;
+
+        //Assembler l'url
+        mailTo = ((Row)((TableView)viewTable).getSelectedRowObject()).mail;
+        mailTo += "?subject=Test avec Java";
+        mailTo += "&body=Envoyer un email avec Java";
+
+        //Ouvrir le logiciel de messagerie par défaut
+        if (Desktop.isDesktopSupported()) {
+            if (Desktop.getDesktop().isSupported(Desktop.Action.MAIL)) {
+                try {
+                    uriMailTo = new URI("mailto", mailTo, null);
+                    Desktop.getDesktop().mail(uriMailTo);
+                } catch (Exception ex) {
+                    Logger.getLogger(Notebook.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }
 
     public boolean getIsFileChanged() {
