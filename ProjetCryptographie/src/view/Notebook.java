@@ -154,7 +154,7 @@ public class Notebook extends javax.swing.JPanel
     {
         HashMap<String,String> data = new HashMap<>();
         
-        for(int i=1; i < this.viewTable.getRowCount(); i++)
+        for(int i=0; i < this.viewTable.getRowCount(); i++)
             data.put((String)this.viewTable.getValueAt(i, 0),(String)this.viewTable.getValueAt(i, 1));  
         
         return data;
@@ -183,8 +183,8 @@ public class Notebook extends javax.swing.JPanel
 
         //Assembler l'url
         mailTo = ((Row)((TableView)viewTable).getSelectedRowObject()).mail;
-        mailTo += "?subject=Test avec Java";
-        mailTo += "&body=Envoyer un email avec Java";
+        mailTo += "?subject=Objet";
+        mailTo += "&body=";
 
         //Ouvrir le logiciel de messagerie par défaut
         if (Desktop.isDesktopSupported()) {

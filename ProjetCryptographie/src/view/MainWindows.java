@@ -345,7 +345,8 @@ public class MainWindows extends javax.swing.JFrame {
     private void SaveButtonDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonDialogActionPerformed
         CryptoTools.encryptFile3DES(
                 new NoteBookFile(this.loginTextField.getText(),
-                "3DES",new String(this.PasswordField.getPassword()),
+                "3DES",
+                new String(this.PasswordField.getPassword()),
                 this.notebook1.getDataFromTable()));
         System.exit(0);
     }//GEN-LAST:event_SaveButtonDialogActionPerformed
