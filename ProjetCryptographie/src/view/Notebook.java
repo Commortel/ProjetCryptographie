@@ -20,9 +20,8 @@ import tableView.TableViewColumn;
 public class Notebook extends javax.swing.JPanel
 {
     private DefaultTableViewModel model;
-    /**
-     * Creates new form Notebook
-     */
+    private boolean isFileChanged = false;
+    
     public Notebook() {
         this.initData();
         initComponents();
@@ -144,8 +143,6 @@ public class Notebook extends javax.swing.JPanel
         for(Entry<String, String> entry : list.entrySet()) 
             model.addRow(new Row(entry.getKey(), entry.getValue()));
         
-        //model.removeRow(((TableView)viewTable).getValueAt(1, 0));
-        
         ((TableView)viewTable).addRowSelection(selection);
     }
     
@@ -161,6 +158,7 @@ public class Notebook extends javax.swing.JPanel
     
     public void addRow()
     {
+        this.isFileChanged = true;
         List selection = ((TableView)viewTable).getSelectedRowObjects();
         model.addRow(new Row("New row", "This is s new row"));
         ((TableView)viewTable).addRowSelection(selection);
@@ -168,6 +166,7 @@ public class Notebook extends javax.swing.JPanel
     
     public void removeRow()
     {
+        this.isFileChanged = true;
         List selection = ((TableView)viewTable).getSelectedRowObjects();
         model.removeRows(selection);
     }
@@ -175,6 +174,10 @@ public class Notebook extends javax.swing.JPanel
     private void mailTo() 
     {
         System.out.println(((Row)((TableView)viewTable).getSelectedRowObject()).mail);
+    }
+
+    public boolean getIsFileChanged() {
+        return isFileChanged;
     }
     
     public static class Row

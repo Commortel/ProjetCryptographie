@@ -6,6 +6,7 @@ package view;
 
 import java.io.IOException;
 import java.security.Security;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -46,9 +47,9 @@ public class MainWindows extends javax.swing.JFrame {
         OpenPasswordField = new javax.swing.JPasswordField();
         OpenPasswordLabel = new javax.swing.JLabel();
         OpenButtonDialog = new javax.swing.JButton();
-        OpenLoginLabel = new javax.swing.JLabel();
         CancelButtonOpenDialog = new javax.swing.JButton();
-        OpenLoginField = new javax.swing.JTextField();
+        InfoDialog = new javax.swing.JDialog();
+        InfoField = new javax.swing.JLabel();
         MainPanel = new javax.swing.JPanel();
         notebook1 = new view.Notebook();
         Menu = new javax.swing.JMenuBar();
@@ -145,8 +146,6 @@ public class MainWindows extends javax.swing.JFrame {
             }
         });
 
-        OpenLoginLabel.setText("Login");
-
         CancelButtonOpenDialog.setText("Cancel");
         CancelButtonOpenDialog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,13 +161,9 @@ public class MainWindows extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(OpenDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(OpenDialogLayout.createSequentialGroup()
-                        .addGroup(OpenDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(OpenLoginLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(OpenPasswordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
+                        .addComponent(OpenPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(OpenDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(OpenLoginField)
-                            .addComponent(OpenPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)))
+                        .addComponent(OpenPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(OpenDialogLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(OpenButtonDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -181,20 +176,43 @@ public class MainWindows extends javax.swing.JFrame {
             .addGroup(OpenDialogLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(OpenDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(OpenLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(OpenLoginField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(OpenDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OpenPasswordLabel)
                     .addComponent(OpenPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(OpenDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OpenButtonDialog)
                     .addComponent(CancelButtonOpenDialog))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        InfoDialog.setTitle("Information");
+        InfoDialog.setAlwaysOnTop(true);
+        InfoDialog.setMaximumSize(new java.awt.Dimension(172, 80));
+        InfoDialog.setMinimumSize(new java.awt.Dimension(172, 80));
+        InfoDialog.setModal(true);
+        InfoDialog.setPreferredSize(new java.awt.Dimension(172, 80));
+
+        javax.swing.GroupLayout InfoDialogLayout = new javax.swing.GroupLayout(InfoDialog.getContentPane());
+        InfoDialog.getContentPane().setLayout(InfoDialogLayout);
+        InfoDialogLayout.setHorizontalGroup(
+            InfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(InfoDialogLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(InfoField, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(548, Short.MAX_VALUE))
+        );
+        InfoDialogLayout.setVerticalGroup(
+            InfoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(InfoDialogLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(InfoField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(494, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("NoteBook");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMaximumSize(new java.awt.Dimension(709, 554));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -312,7 +330,8 @@ public class MainWindows extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
-        this.SaveDialogWithoutFile.setVisible(true);
+        if(this.notebook1.getIsFileChanged()) this.SaveDialogWithoutFile.setVisible(true);
+        else System.exit(0);
     }//GEN-LAST:event_SaveActionPerformed
 
     private void addContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addContactActionPerformed
@@ -338,15 +357,27 @@ public class MainWindows extends javax.swing.JFrame {
     private void OpenButtonDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenButtonDialogActionPerformed
         this.OpenDialog.setVisible(false);
         try {
-            this.notebook1.setData(StringTools.convertStringToHashMapFormat(CryptoTools.decryptFile3DES(this.FileChooser.getSelectedFile().getCanonicalPath(),"ThibautCommorteL")));
-            //System.out.println(CryptoTools.decryptFile3DES(this.FileChooser.getSelectedFile().getCanonicalPath(),"ThibautCommorteL"));
+            System.out.println(this.FileChooser.getSelectedFile().getName());
+            String name = StringTools.getNameWithoutExtension(this.FileChooser.getSelectedFile().getName());
+            HashMap<String,String> tmp = StringTools.convertStringToHashMapFormat(
+                    CryptoTools.decryptFile3DES(this.FileChooser.getSelectedFile().getCanonicalPath(),name + new String(this.OpenPasswordField.getPassword())));
+            if(!tmp.isEmpty())
+            {    
+                this.InfoField.setText("File opened");
+                this.notebook1.setData(tmp);
+            }
+            else
+                this.InfoField.setText("Bad Password");
+            this.InfoDialog.setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(MainWindows.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.OpenPasswordField.setText(null);
     }//GEN-LAST:event_OpenButtonDialogActionPerformed
 
     private void CancelButtonOpenDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonOpenDialogActionPerformed
         this.OpenDialog.setVisible(false);
+        this.OpenPasswordField.setText(null);
     }//GEN-LAST:event_CancelButtonOpenDialogActionPerformed
  
     /**
@@ -390,14 +421,14 @@ public class MainWindows extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem EncreyptedFile;
     private javax.swing.JMenu File;
     private javax.swing.JFileChooser FileChooser;
+    private javax.swing.JDialog InfoDialog;
+    private javax.swing.JLabel InfoField;
     private javax.swing.JLabel LoginLabel;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JMenuBar Menu;
     private javax.swing.JMenuItem Open;
     private javax.swing.JButton OpenButtonDialog;
     private javax.swing.JDialog OpenDialog;
-    private javax.swing.JTextField OpenLoginField;
-    private javax.swing.JLabel OpenLoginLabel;
     private javax.swing.JPasswordField OpenPasswordField;
     private javax.swing.JLabel OpenPasswordLabel;
     private javax.swing.JMenu Option;
