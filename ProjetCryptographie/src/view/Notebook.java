@@ -143,6 +143,7 @@ public class Notebook extends javax.swing.JPanel
     
     public void setData(HashMap<String,String> list)
     {
+        this.isFileChanged = true;
         List selection = ((TableView)viewTable).getSelectedRowObjects();
         for(Entry<String, String> entry : list.entrySet()) 
             model.addRow(new Row(entry.getKey(), entry.getValue()));

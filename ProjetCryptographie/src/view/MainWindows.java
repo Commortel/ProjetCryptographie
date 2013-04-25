@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import tools.CryptoTools;
 import static tools.CryptoTools.encrypt3DES;
+import tools.FileTools;
 import tools.NoteBookFile;
 import tools.StringTools;
 
@@ -62,6 +63,7 @@ public class MainWindows extends javax.swing.JFrame {
         ContactMenu = new javax.swing.JMenu();
         addContact = new javax.swing.JMenuItem();
         deleteContact = new javax.swing.JMenuItem();
+        ImportContact = new javax.swing.JMenuItem();
 
         SaveDialogWithoutFile.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         SaveDialogWithoutFile.setTitle("Notebook");
@@ -292,6 +294,14 @@ public class MainWindows extends javax.swing.JFrame {
         });
         ContactMenu.add(deleteContact);
 
+        ImportContact.setText("Import");
+        ImportContact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImportContactActionPerformed(evt);
+            }
+        });
+        ContactMenu.add(ImportContact);
+
         Menu.add(ContactMenu);
 
         setJMenuBar(Menu);
@@ -380,6 +390,21 @@ public class MainWindows extends javax.swing.JFrame {
         this.OpenDialog.setVisible(false);
         this.OpenPasswordField.setText(null);
     }//GEN-LAST:event_CancelButtonOpenDialogActionPerformed
+
+    private void ImportContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportContactActionPerformed
+        try{    
+            this.FileChooser.setVisible(true);
+            int returnVal = this.FileChooser.showOpenDialog(this);
+
+            if (returnVal == FileChooser.APPROVE_OPTION) {
+                this.notebook1.setData(StringTools.convertCsvStringToHashMapFormat(StringTools.getString(FileTools.ReadFile(this.FileChooser.getSelectedFile().getCanonicalPath()))));
+            } else {
+                System.out.println("Canceled");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MainWindows.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_ImportContactActionPerformed
  
     /**
      * @param args the command line arguments
@@ -422,6 +447,7 @@ public class MainWindows extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem EncreyptedFile;
     private javax.swing.JMenu File;
     private javax.swing.JFileChooser FileChooser;
+    private javax.swing.JMenuItem ImportContact;
     private javax.swing.JDialog InfoDialog;
     private javax.swing.JLabel InfoField;
     private javax.swing.JLabel LoginLabel;

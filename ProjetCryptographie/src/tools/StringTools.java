@@ -64,6 +64,21 @@ public class StringTools
         }
     }
     
+    public static HashMap<String,String> convertCsvStringToHashMapFormat(String csv)
+    {
+        HashMap<String,String> data = new HashMap<>();
+        String[] tmp = csv.split(",");
+        System.out.println(tmp.length);
+        
+        for(int i=30; i < tmp.length-28; i+=30)
+        {
+            data.put(tmp[i].trim(), tmp[i+28].trim());
+            System.out.println("Name : " + tmp[i] + "Mail : " + tmp[i+28]);
+        }
+        
+        return data;
+    }
+    
     public static String getNameWithoutExtension(String name)
     {
         return name.substring(0, name.length()-4);
