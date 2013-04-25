@@ -22,6 +22,7 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="addButton" max="32767" attributes="0"/>
                   <Component id="RemoveButton" pref="126" max="32767" attributes="0"/>
+                  <Component id="mailToButton" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -30,11 +31,13 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Component id="addButton" min="-2" pref="230" max="-2" attributes="0"/>
-              <EmptySpace pref="54" max="32767" attributes="0"/>
-              <Component id="RemoveButton" min="-2" pref="230" max="-2" attributes="0"/>
+              <Component id="addButton" min="-2" pref="163" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="RemoveButton" min="-2" pref="164" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="mailToButton" max="32767" attributes="0"/>
           </Group>
-          <Component id="jScrollPane1" max="32767" attributes="0"/>
+          <Component id="jScrollPane1" pref="514" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -77,5 +80,13 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="mailToButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="MailTo"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mailToButtonActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

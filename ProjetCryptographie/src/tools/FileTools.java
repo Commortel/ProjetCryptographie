@@ -1,15 +1,9 @@
 package tools;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,7 +20,7 @@ public class FileTools
         FileOutputStream out = null;
         try 
         {
-            out = new FileOutputStream(folderPath+filePath);
+            out = new FileOutputStream(folderPath+filePath+".cry");
             out.write(fileContent);
         }
         catch (Exception ex) 
@@ -45,7 +39,7 @@ public class FileTools
 
     public static byte[] ReadFile(String filePath)
     {  
-        try{ return Files.readAllBytes(Paths.get(folderPath+filePath)); } 
+        try{ return Files.readAllBytes(Paths.get(filePath)); } 
         catch (IOException ex) { Logger.getLogger(FileTools.class.getName()).log(Level.SEVERE, null, ex); return null;}
     } 
 }

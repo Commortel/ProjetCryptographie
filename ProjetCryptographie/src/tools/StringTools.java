@@ -5,6 +5,8 @@
 package tools;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,5 +34,26 @@ public class StringTools
             Logger.getLogger(StringTools.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public static byte[] convertHashMapToStringFormat(HashMap<String,String> data)
+    {
+        String tmp = new String("");
+        for(Entry<String, String> entry : data.entrySet()) 
+            tmp += entry.getKey() + "~" + entry.getValue() + ";";
+        return getBytes(tmp);
+    }
+    
+    public static HashMap<String,String> convertStringToHashMapFormat(String data)
+    {
+        HashMap<String,String> listData = new HashMap<>();
+        String[] tmp = data.split(";");
+        
+        for(String s : tmp)
+        {
+            String[] t = s.split("~");
+            listData.put(t[0], t[1]);
+        }
+        return listData;
     }
 }
