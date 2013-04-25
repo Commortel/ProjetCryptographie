@@ -4,9 +4,15 @@
  */
 package view;
 
+import java.io.IOException;
 import java.security.Security;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import tools.CryptoTools;
+import static tools.CryptoTools.encrypt3DES;
+import tools.NoteBookFile;
+import tools.StringTools;
 
 /**
  *
@@ -36,6 +42,13 @@ public class MainWindows extends javax.swing.JFrame {
         SaveButtonDialog = new javax.swing.JButton();
         CancelButtonDialog = new javax.swing.JButton();
         FileChooser = new javax.swing.JFileChooser();
+        OpenDialog = new javax.swing.JDialog();
+        OpenPasswordField = new javax.swing.JPasswordField();
+        OpenPasswordLabel = new javax.swing.JLabel();
+        OpenButtonDialog = new javax.swing.JButton();
+        OpenLoginLabel = new javax.swing.JLabel();
+        CancelButtonOpenDialog = new javax.swing.JButton();
+        OpenLoginField = new javax.swing.JTextField();
         MainPanel = new javax.swing.JPanel();
         notebook1 = new view.Notebook();
         Menu = new javax.swing.JMenuBar();
@@ -112,7 +125,73 @@ public class MainWindows extends javax.swing.JFrame {
                 .addGroup(SaveDialogWithoutFileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SaveButtonDialog)
                     .addComponent(CancelButtonDialog))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
+        );
+
+        FileChooser.setCurrentDirectory(new java.io.File("C:\\Users\\Thibaut\\Documents\\GitHub\\ProjetCryptographie\\ProjetCryptographie\\Notebook"));
+
+        OpenDialog.setAlwaysOnTop(true);
+        OpenDialog.setMaximumSize(new java.awt.Dimension(300, 160));
+        OpenDialog.setMinimumSize(new java.awt.Dimension(270, 160));
+        OpenDialog.setModal(true);
+        OpenDialog.setPreferredSize(new java.awt.Dimension(269, 160));
+
+        OpenPasswordLabel.setText("Password");
+
+        OpenButtonDialog.setText("Open");
+        OpenButtonDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpenButtonDialogActionPerformed(evt);
+            }
+        });
+
+        OpenLoginLabel.setText("Login");
+
+        CancelButtonOpenDialog.setText("Cancel");
+        CancelButtonOpenDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelButtonOpenDialogActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout OpenDialogLayout = new javax.swing.GroupLayout(OpenDialog.getContentPane());
+        OpenDialog.getContentPane().setLayout(OpenDialogLayout);
+        OpenDialogLayout.setHorizontalGroup(
+            OpenDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(OpenDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(OpenDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(OpenDialogLayout.createSequentialGroup()
+                        .addGroup(OpenDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(OpenLoginLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(OpenPasswordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(OpenDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(OpenLoginField)
+                            .addComponent(OpenPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)))
+                    .addGroup(OpenDialogLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(OpenButtonDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(CancelButtonOpenDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+        OpenDialogLayout.setVerticalGroup(
+            OpenDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(OpenDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(OpenDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(OpenLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(OpenLoginField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(OpenDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(OpenPasswordLabel)
+                    .addComponent(OpenPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(OpenDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(OpenButtonDialog)
+                    .addComponent(CancelButtonOpenDialog))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -215,8 +294,13 @@ public class MainWindows extends javax.swing.JFrame {
 
     private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
         this.FileChooser.setVisible(true);
-        this.FileChooser.showOpenDialog(this);
-        System.out.println(CryptoTools.decryptFile3DES("Thibaut.cry","thibaut"));
+        int returnVal = this.FileChooser.showOpenDialog(this);
+        
+        if (returnVal == FileChooser.APPROVE_OPTION) {
+            this.OpenDialog.setVisible(true);     
+        } else {
+            System.out.println("Canceled");
+        }
     }//GEN-LAST:event_OpenActionPerformed
 
     private void QuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuitActionPerformed
@@ -229,7 +313,6 @@ public class MainWindows extends javax.swing.JFrame {
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         this.SaveDialogWithoutFile.setVisible(true);
-        CryptoTools.encryptFile3DES("Pouet", "Thibaut.cry","thibaut");
     }//GEN-LAST:event_SaveActionPerformed
 
     private void addContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addContactActionPerformed
@@ -241,12 +324,30 @@ public class MainWindows extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteContactActionPerformed
 
     private void SaveButtonDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonDialogActionPerformed
+        CryptoTools.encryptFile3DES(
+                new NoteBookFile(this.loginTextField.getText(),
+                "3DES",new String(this.PasswordField.getPassword()),
+                this.notebook1.getDataFromTable()));
         System.exit(0);
     }//GEN-LAST:event_SaveButtonDialogActionPerformed
 
     private void CancelButtonDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonDialogActionPerformed
         System.exit(0);
     }//GEN-LAST:event_CancelButtonDialogActionPerformed
+
+    private void OpenButtonDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenButtonDialogActionPerformed
+        this.OpenDialog.setVisible(false);
+        try {
+            this.notebook1.setData(StringTools.convertStringToHashMapFormat(CryptoTools.decryptFile3DES(this.FileChooser.getSelectedFile().getCanonicalPath(),"ThibautCommorteL")));
+            //System.out.println(CryptoTools.decryptFile3DES(this.FileChooser.getSelectedFile().getCanonicalPath(),"ThibautCommorteL"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainWindows.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_OpenButtonDialogActionPerformed
+
+    private void CancelButtonOpenDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonOpenDialogActionPerformed
+        this.OpenDialog.setVisible(false);
+    }//GEN-LAST:event_CancelButtonOpenDialogActionPerformed
  
     /**
      * @param args the command line arguments
@@ -284,6 +385,7 @@ public class MainWindows extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelButtonDialog;
+    private javax.swing.JButton CancelButtonOpenDialog;
     private javax.swing.JMenu ContactMenu;
     private javax.swing.JCheckBoxMenuItem EncreyptedFile;
     private javax.swing.JMenu File;
@@ -292,6 +394,12 @@ public class MainWindows extends javax.swing.JFrame {
     private javax.swing.JPanel MainPanel;
     private javax.swing.JMenuBar Menu;
     private javax.swing.JMenuItem Open;
+    private javax.swing.JButton OpenButtonDialog;
+    private javax.swing.JDialog OpenDialog;
+    private javax.swing.JTextField OpenLoginField;
+    private javax.swing.JLabel OpenLoginLabel;
+    private javax.swing.JPasswordField OpenPasswordField;
+    private javax.swing.JLabel OpenPasswordLabel;
     private javax.swing.JMenu Option;
     private javax.swing.JPasswordField PasswordField;
     private javax.swing.JLabel PasswordLabel;

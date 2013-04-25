@@ -65,7 +65,7 @@
                       <Component id="SaveButtonDialog" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="CancelButtonDialog" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="65" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -104,7 +104,111 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JFileChooser" name="FileChooser">
+      <Properties>
+        <Property name="currentDirectory" type="java.io.File" editor="org.netbeans.beaninfo.editors.FileEditor">
+          <SerializedValue value="-84,-19,0,5,115,114,0,12,106,97,118,97,46,105,111,46,70,105,108,101,4,45,-92,69,14,13,-28,-1,3,0,1,76,0,4,112,97,116,104,116,0,18,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,120,112,116,0,82,67,58,92,85,115,101,114,115,92,84,104,105,98,97,117,116,92,68,111,99,117,109,101,110,116,115,92,71,105,116,72,117,98,92,80,114,111,106,101,116,67,114,121,112,116,111,103,114,97,112,104,105,101,92,80,114,111,106,101,116,67,114,121,112,116,111,103,114,97,112,104,105,101,92,78,111,116,101,98,111,111,107,119,2,0,92,120"/>
+        </Property>
+      </Properties>
     </Component>
+    <Container class="javax.swing.JDialog" name="OpenDialog">
+      <Properties>
+        <Property name="alwaysOnTop" type="boolean" value="true"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[300, 160]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[270, 160]"/>
+        </Property>
+        <Property name="modal" type="boolean" value="true"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[269, 160]"/>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="OpenLoginLabel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="OpenPasswordLabel" alignment="0" pref="67" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="OpenLoginField" alignment="0" max="32767" attributes="0"/>
+                              <Component id="OpenPasswordField" alignment="0" pref="155" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Component id="OpenButtonDialog" min="-2" pref="103" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="CancelButtonOpenDialog" min="-2" pref="101" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="19" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="OpenLoginLabel" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="OpenLoginField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="OpenPasswordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="OpenPasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="OpenButtonDialog" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="CancelButtonOpenDialog" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="32" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JPasswordField" name="OpenPasswordField">
+        </Component>
+        <Component class="javax.swing.JLabel" name="OpenPasswordLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Password"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="OpenButtonDialog">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Open"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OpenButtonDialogActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="OpenLoginLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Login"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="CancelButtonOpenDialog">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cancel"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CancelButtonOpenDialogActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="OpenLoginField">
+        </Component>
+      </SubComponents>
+    </Container>
     <Menu class="javax.swing.JMenuBar" name="Menu">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="File">
