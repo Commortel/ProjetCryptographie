@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package tools;
 
 import java.io.UnsupportedEncodingException;
@@ -11,11 +7,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * String function container
  * @author Thibaut
  */
 public class StringTools 
 {
+    /**
+     * Returns a string for a byte array
+     * @param str - data
+     * @return a string for a byte array
+     */
     public static String getString(byte[] str)
     { 
         try { 
@@ -26,6 +27,11 @@ public class StringTools
         return null;
     } 
  
+    /**
+     * Returns a byte array from a string, utf-8 encoding
+     * @param str - data
+     * @return a byte array
+     */
     public static byte[] getBytes(String str)
     {
         try {
@@ -36,6 +42,11 @@ public class StringTools
         return null;
     }
     
+    /**
+     * Returns a byte array from an HashMap
+     * @param data - data
+     * @return a byte array
+     */
     public static byte[] convertHashMapToStringFormat(HashMap<String,String> data)
     {
         String tmp = new String("");
@@ -44,6 +55,11 @@ public class StringTools
         return getBytes(tmp);
     }
     
+    /**
+     * Returns an HashMap from a string
+     * @param data - data
+     * @return a HashMap
+     */
     public static HashMap<String,String> convertStringToHashMapFormat(String data)
     {
         try
@@ -64,6 +80,11 @@ public class StringTools
         }
     }
     
+    /**
+     * Returns an HashMap data from a google csv file format
+     * @param csv - google csv 
+     * @return an HashMap
+     */
     public static HashMap<String,String> convertCsvStringToHashMapFormat(String csv)
     {
         HashMap<String,String> data = new HashMap<>();
@@ -73,12 +94,17 @@ public class StringTools
         for(int i=30; i < tmp.length-28; i+=30)
         {
             data.put(tmp[i].trim(), tmp[i+28].trim());
-            System.out.println("Name : " + tmp[i] + "Mail : " + tmp[i+28]);
+            System.out.println("Name : " + tmp[i].trim() + " Mail : " + tmp[i+28].trim());
         }
         
         return data;
     }
     
+    /**
+     * Returns a filename without his extension
+     * @param name - filename
+     * @return filename without his extension
+     */
     public static String getNameWithoutExtension(String name)
     {
         return name.substring(0, name.length()-4);

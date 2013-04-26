@@ -1,14 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package tools;
 
 import java.util.HashMap;
 
 /**
- *
+ * Skeleton File for Notebook data
  * @author Thibaut
+ * 
  */
 public class NoteBookFile 
 {
@@ -25,6 +22,13 @@ public class NoteBookFile
         this.data = new HashMap<>();
     }
     
+    /**
+     * 
+     * @param name
+     * @param algorithmEncryption
+     * @param password
+     * @param data
+     */
     public NoteBookFile(String name, String algorithmEncryption, String password, HashMap<String,String> data) 
     {
         this.name = name;
@@ -33,6 +37,10 @@ public class NoteBookFile
         this.data = data;
     }
 
+    /**
+     * Returns a byte array after putting name, SHA-1(password) and algorithm in HashMap data
+     * @return a byte array
+     */
     public byte[] outputFormatFile()
     {
         //Head of file
@@ -42,11 +50,19 @@ public class NoteBookFile
         return StringTools.convertHashMapToStringFormat(data);
     }
     
+    /**
+     * Returns encryption/decryption key
+     * @return name + password
+     */
     public String getKey()
     {
         return this.name+this.password;
     }
 
+    /**
+     * Returns the name
+     * @return name
+     */
     public String getName() {
         return this.name;
     }

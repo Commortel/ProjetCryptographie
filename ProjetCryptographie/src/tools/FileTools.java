@@ -8,13 +8,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * File function container
  * @author Thibaut
  */
 public class FileTools 
 {   
     public static String folderPath = "Notebook/";
 
+    /**
+     * Write data into a given file path 
+     * @param fileContent - data
+     * @param filePath - Path
+     */
     public static void WriteFile(byte[] fileContent, String filePath)
     {
         FileOutputStream out = null;
@@ -37,6 +42,11 @@ public class FileTools
         }        
     }
 
+    /**
+     * Read data from a given file path
+     * @param filePath - Path
+     * @return file data
+     */
     public static byte[] ReadFile(String filePath)
     {  
         try{ return Files.readAllBytes(Paths.get(filePath)); } 
