@@ -11,16 +11,16 @@ contenu du carnet devra être protégé par un mot de passe et l'utilisateur
 devra avoir la possibilité de stocker les informations sous forme chiffrée.
 2. Structure de l'application.
 	* 2.1 Présentation externe.
-
+	
 	Votre application devra présenter une interface graphique comportant des
 	champs textes permettant la saisie :
+
 		1. du mot de passe du propriétaire du carnet
 		2. du nom servant de clé de recherche pour une insertion ou une consul-
 		tation
 		3. de l'adresse associée à un nom
 		Elle pourra aussi présenter sous forme de menu ou de boutons des options
 		activant ou inhibant le chiffrage
-
 	* 2.2 Conseils.
 Pour les composants graphiques préférer les composants swing. Pour le
 stockage des données en mémoire interne utiliser une des classes de l'archi-
