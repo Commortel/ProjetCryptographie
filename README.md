@@ -13,11 +13,11 @@ devra avoir la possibilité de stocker les informations sous forme chiffrée.
 	* 2.1 Présentation externe.
 
 	Votre application devra présenter une interface graphique comportant des
-	champs textes permettant la saisie
-		* 1 du mot de passe du propriétaire du carnet
-		* 2 du nom servant de clé de recherche pour une insertion ou une consul-
+	champs textes permettant la saisie :
+		1. du mot de passe du propriétaire du carnet
+		2. du nom servant de clé de recherche pour une insertion ou une consul-
 		tation
-		* 3 de l'adresse associée à un nom
+		3. de l'adresse associée à un nom
 		Elle pourra aussi présenter sous forme de menu ou de boutons des options
 		activant ou inhibant le chiffrage
 
@@ -31,7 +31,7 @@ tecture des collections Java implémentant l'interface Map.
 Utiliser le client mail par défaut pour précharger l'envoie d'un mail avec l'adresse sélectionnée.
 <code>
 	uriMailTo = new URI("mailto", mailTo, null);
-    Desktop.getDesktop().mail(uriMailTo);
+    	Desktop.getDesktop().mail(uriMailTo);
 </code>	
 
 #Import Google cvs file : DAVER LEONARD
