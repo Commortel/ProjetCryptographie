@@ -58,10 +58,8 @@ public class MainWindows extends javax.swing.JFrame
         SaveDialogWithoutFile.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         SaveDialogWithoutFile.setTitle("Notebook");
         SaveDialogWithoutFile.setAlwaysOnTop(true);
-        SaveDialogWithoutFile.setMaximumSize(new java.awt.Dimension(300, 200));
         SaveDialogWithoutFile.setMinimumSize(new java.awt.Dimension(270, 170));
         SaveDialogWithoutFile.setModal(true);
-        SaveDialogWithoutFile.setPreferredSize(new java.awt.Dimension(270, 170));
 
         LoginLabel.setText("Login");
 
@@ -124,10 +122,8 @@ public class MainWindows extends javax.swing.JFrame
         FileChooser.setCurrentDirectory(new java.io.File("C:\\Users\\Thibaut\\Documents\\GitHub\\ProjetCryptographie\\ProjetCryptographie\\Notebook"));
 
         OpenDialog.setAlwaysOnTop(true);
-        OpenDialog.setMaximumSize(new java.awt.Dimension(300, 160));
         OpenDialog.setMinimumSize(new java.awt.Dimension(270, 160));
         OpenDialog.setModal(true);
-        OpenDialog.setPreferredSize(new java.awt.Dimension(269, 160));
 
         OpenPasswordLabel.setText("Password");
 
@@ -179,10 +175,8 @@ public class MainWindows extends javax.swing.JFrame
 
         InfoDialog.setTitle("Information");
         InfoDialog.setAlwaysOnTop(true);
-        InfoDialog.setMaximumSize(new java.awt.Dimension(172, 80));
         InfoDialog.setMinimumSize(new java.awt.Dimension(172, 80));
         InfoDialog.setModal(true);
-        InfoDialog.setPreferredSize(new java.awt.Dimension(172, 80));
 
         javax.swing.GroupLayout InfoDialogLayout = new javax.swing.GroupLayout(InfoDialog.getContentPane());
         InfoDialog.getContentPane().setLayout(InfoDialogLayout);
@@ -323,15 +317,16 @@ public class MainWindows extends javax.swing.JFrame
 
     private void QuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuitActionPerformed
         this.Save.doClick();
+        System.exit(0);
     }//GEN-LAST:event_QuitActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.Save.doClick();
+        System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         if(this.notebook1.getIsFileChanged()) this.SaveDialogWithoutFile.setVisible(true);
-        else System.exit(0);
     }//GEN-LAST:event_SaveActionPerformed
 
     private void addContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addContactActionPerformed
