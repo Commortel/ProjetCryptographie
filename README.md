@@ -34,7 +34,7 @@ Utiliser le client mail par défaut pour précharger l'envoie d'un mail avec l'a
     	Desktop.getDesktop().mail(uriMailTo);
 </code>	
 
-#Import Google cvs file : DAVER LEONARD
+#Import Google csv file : DAVER LEONARD
 
 Permettre l'insertion dans la table d'une liste d'utilisateur sous le format google cvs file export. Extraire juste le nom et le mail principal du fichier.
 
